@@ -12,7 +12,7 @@ pipeline {
 		stage('Build Docker image') {
             steps {
 			//sh 'docker build -t raghu/app:v${BUILD_NUMBER} .'
-			sh 'echo hello world'
+			sh 'whoami'
             }
         }
 		stage('verify the docker images') {
