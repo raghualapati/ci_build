@@ -11,17 +11,12 @@ pipeline {
         }
 		stage('Build Docker image') {
             steps {
-			bash '''#!/bin/bash
-                 echo "hello world" 
-                docker build -t raghu/app:v${BUILD_NUMBER} .
-				'''
+			sh 'docker build -t raghu/app:v${BUILD_NUMBER} .'
             }
         }
 		stage('verify the docker images') {
             steps {
-			bash '''#!/bin/bash
-                docker images
-				'''
+                'docker images'
             }
         }
         stage('Test') {
