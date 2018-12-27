@@ -16,7 +16,7 @@ pipeline {
         }
 		stage('verify the docker images') {
             steps {
-                'docker images'
+                sh 'docker images'
             }
         }
         stage('Test') {
