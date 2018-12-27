@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clone the application repo') {
             steps {
-                echo 'Building..'
+                git branch: 'master',
+                credentialsId: 'raghu_git',
+                url: 'https://github.com/raghualapati/httpserver.git'
             }
         }
         stage('Test') {
