@@ -17,16 +17,16 @@ pipeline {
         }
 		stage('verify the docker images') {
             steps {
+				//sh 'docker images'
                 sh 'echo hello world'
             }
         }
         stage('Test') {
             steps {
-			bash '''#!/bin/bash
-                curl -fsSL https://goss.rocks/install | sh
+			
+                sh 'curl -fsSL https://goss.rocks/install | sh
 				export GOSS_FILES_STRATEGY=cp
-				dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}
-				'''
+				dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
         }
         stage('Deploy') {
