@@ -11,6 +11,8 @@ pipeline {
         }
 		stage('Build Docker image') {
             steps {
+			sh 'sudo usermod -a -G docker $USER'
+			sh 'id'
 			sh 'docker build -t raghu/app:v${BUILD_NUMBER} .'
             }
         }
