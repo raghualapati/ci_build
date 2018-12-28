@@ -11,20 +11,20 @@ pipeline {
         }
 		stage('Build Docker image') {
             steps {
-			//sh 'docker build -t raghu/app:v${BUILD_NUMBER} .'
+			sh 'docker build -t raghu/app:v${BUILD_NUMBER} .'
 			sh 'whoami'
             }
         }
 		stage('verify the docker images') {
             steps {
-				//sh 'docker images'
+				sh 'docker images'
                 sh 'echo hello world'
             }
         }
         stage('Test') {
             steps {
 			
-                sh 'curl -fsSL https://goss.rocks/install | sh'
+                sh 'curl -fsSL https://goss.rocks/install | sudo sh'
 				sh 'export GOSS_FILES_STRATEGY=cp'
 				sh 'dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
