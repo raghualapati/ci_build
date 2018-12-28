@@ -24,9 +24,9 @@ pipeline {
         stage('Test') {
             steps {
 			
-                sh 'curl -fsSL https://goss.rocks/install | sh
-				export GOSS_FILES_STRATEGY=cp
-				dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
+                sh 'curl -fsSL https://goss.rocks/install | sh'
+				sh 'export GOSS_FILES_STRATEGY=cp'
+				sh 'dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
         }
         stage('Deploy') {
