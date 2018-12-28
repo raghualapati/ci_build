@@ -23,6 +23,7 @@ pipeline {
         stage('Test') {
             steps {
 				sh 'sudo su'
+				sh 'id'
 				sh 'rm -rf /usr/local/bin/*goss'
                 sh 'curl -fsSL https://goss.rocks/install | sh'
 				sh 'export GOSS_FILES_STRATEGY=cp'
