@@ -22,8 +22,11 @@ pipeline {
         }
         stage('Test') {
             steps {
+				
+				sh 'export GOSS_FILES_STRATEGY=cp'
+				sh 'export GOSS_PATH=/usr/local/bin/goss'
 				sh 'export | grep GOSS'
-				sh 'sudo /usr/local/bin/dgoss run -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
+				sh '/usr/local/bin/dgoss run -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
         }
         stage('Deploy') {
