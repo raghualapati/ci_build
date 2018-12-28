@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label 'aws-slave'}
 
     stages {
         stage('Clone the application repo') {
