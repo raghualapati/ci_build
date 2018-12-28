@@ -11,12 +11,12 @@ pipeline {
         }
 		stage('Build Docker image') {
             steps {
-			sh 'sudo docker build -t raghu/app:v${BUILD_NUMBER} .'
+			sh 'docker build -t raghu/app:v${BUILD_NUMBER} .'
             }
         }
 		stage('verify the docker images') {
             steps {
-				sh 'sudo docker images'
+				sh 'docker images'
             }
         }
         stage('Test') {
@@ -24,7 +24,7 @@ pipeline {
 				sh 'export GOSS_FILES_STRATEGY=cp'
 				sh 'export GOSS_PATH=/usr/local/bin/goss'
 				sh 'whoami'
-				sh 'sudo /usr/local/bin/dgoss run -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
+				sh '/usr/local/bin/dgoss run -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
         }
         stage('Deploy') {
