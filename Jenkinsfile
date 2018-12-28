@@ -27,7 +27,7 @@ pipeline {
 			
                 sh 'curl -fsSL https://goss.rocks/install | sudo sh'
 				sh 'export GOSS_FILES_STRATEGY=cp'
-				sh 'sudo dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
+				sh 'sudo /usr/local/bin/dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
         }
         stage('Deploy') {
