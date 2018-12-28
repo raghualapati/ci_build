@@ -22,10 +22,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-				sh 'sudo rm -rf /usr/local/bin/*goss'
+				sh 'sudo su && rm -rf /usr/local/bin/*goss'
                 sh 'curl -fsSL https://goss.rocks/install | sudo sh'
-				sh 'export GOSS_FILES_STRATEGY=cp'
-				sh 'export GOSS_PATH=/usr/local/bin/goss'
+				sh 'sudo su && export GOSS_FILES_STRATEGY=cp'
+				sh 'sudo su && export GOSS_PATH=/usr/local/bin/goss'
 				sh 'wget https://github.com/raghualapati/httpserver/raw/master/goss.yaml'
 				sh 'sudo /usr/local/bin/dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
