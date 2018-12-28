@@ -22,7 +22,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-				sh 'sudo /usr/local/bin/dgoss run -d -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
+				sh 'export | grep GOSS'
+				sh 'sudo /usr/local/bin/dgoss run -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
         }
         stage('Deploy') {
