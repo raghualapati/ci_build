@@ -11,7 +11,6 @@ pipeline {
         }
 		stage('Build Docker image') {
             steps {
-			sh 'sudo systemctl start docker'
 			sh 'sudo docker build -t raghu/app:v${BUILD_NUMBER} .'
             }
         }
@@ -22,10 +21,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-				
 				sh 'export GOSS_FILES_STRATEGY=cp'
 				sh 'export GOSS_PATH=/usr/local/bin/goss'
-				sh 'export | grep GOSS'
+				sh 'pwd'
 				sh '/usr/local/bin/dgoss run -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
             }
         }
