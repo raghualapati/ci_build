@@ -13,13 +13,11 @@ pipeline {
             steps {
 			sh 'sudo systemctl start docker'
 			sh 'sudo docker build -t raghu/app:v${BUILD_NUMBER} .'
-			sh 'whoami'
             }
         }
 		stage('verify the docker images') {
             steps {
 				sh 'sudo docker images'
-                sh 'echo hello world'
             }
         }
         stage('Test') {
