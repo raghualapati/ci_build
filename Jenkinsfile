@@ -11,7 +11,7 @@ pipeline {
         }
 		stage('Build Docker image') {
             steps {
-			sh 'sudo docker build -t raghu/app:v${BUILD_NUMBER} .'
+				sh 'sudo docker build -t raghu/app:v${BUILD_NUMBER} .'
             }
         }
         stage('Test') {
