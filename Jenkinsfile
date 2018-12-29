@@ -14,11 +14,6 @@ pipeline {
 			sh 'sudo docker build -t raghu/app:v${BUILD_NUMBER} .'
             }
         }
-		stage('verify the docker images') {
-            steps {
-				sh 'sudo docker images'
-            }
-        }
         stage('Test') {
             steps {
 				sh 'sudo /usr/local/bin/dgoss run -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
