@@ -13,12 +13,12 @@ pipeline {
             steps {
 			sh 'sudo usermod -aG docker ec2-user'
 			sh 'id'
-			sh 'docker build -t raghu/app:v${BUILD_NUMBER} .'
+			sh 'sudo docker build -t raghu/app:v${BUILD_NUMBER} .'
             }
         }
 		stage('verify the docker images') {
             steps {
-				sh 'docker images'
+				sh 'sudo docker images'
             }
         }
         stage('Test') {
