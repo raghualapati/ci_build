@@ -22,7 +22,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials:'raghu_aws') {
-					def outputs = cfnUpdate(stack:'my-stack', file:'template.yaml', timeoutInMinutes:10, pollInterval:1000)
+					def outputs = cfnUpdate(stack:'my-stack', file:'template.yaml', pollInterval:1000)
 				}
 				
             }
