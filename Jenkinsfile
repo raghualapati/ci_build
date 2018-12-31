@@ -25,10 +25,10 @@ pipeline {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
 				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 				git(changelog: false,
-					credentialsId: raghu_git_ssh,
+					credentialsId: 'raghu_git_ssh',
 					poll: fasle,
-					branch: master,
-					url: git@github.com:raghualapati/httpserver.git)
+					branch: 'master',
+					url: 'git@github.com:raghualapati/httpserver.git')
 				sshagent([raghu_git_ssh]){
 					sh 'git -c user.name='raghu.teja.alapati@gmail.com' add build.txt
 					sh 'git -c user.name='raghu.teja.alapati@gmail.com' commit -m "${BUILD_NUMBER}_build_info"'
