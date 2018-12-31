@@ -23,7 +23,7 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-				withCredentials(credentialsId: 'raghu_git_ssh'){
+				withCredentials(credentials: 'raghu_git_ssh'){
 				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 				
 				
