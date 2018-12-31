@@ -23,14 +23,19 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-				
-				git branch: 'master',
-                credentialsId: 'raghu_git_ssh',
-                url: 'git@github.com:raghualapati/httpserver.git'
 				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
-				sh 'git add build.txt'
-				sh 'git commit -m "${BUILD_NUMBER}_build_info"'
-				sh 'git push origin master'
+				git(changelog: false,
+					credentialsId: raghu_git_ssh,
+					poll: fasle,
+					branch: master,
+					url: git@github.com:raghualapati/httpserver.git)
+				sshagent([raghu_git_ssh]){
+					sh 'git -c user.name='raghu.teja.alapati@gmail.com' add build.txt
+					sh 'git -c user.name='raghu.teja.alapati@gmail.com' commit -m "${BUILD_NUMBER}_build_info"'
+					sh 'git config remote.origin.url git@github.com:raghualapati/httpserver.git
+					sh 'git -c user.name='raghu.teja.alapati@gmail.com' pull ssh://git@github.com:raghualapati/httpserver.git
+					sh 'git -c user.name='raghu.teja.alapati@gmail.com' push ssh://git@github.com:raghualapati/httpserver.git
+					}
 				
             }
         }
