@@ -23,12 +23,10 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-			git url: "ssh://jenkins@your-git-repo:12345/your-git-project.git",
-			credentialsId: 'jenkins_ssh_key',
-			branch: master	
-			sh 'git tag -a tagName -m "${BUILD_NUMBER}_build_complete"'
-			sh 'git commit -am "Merged develop commit to master"'
-			sh 'git push origin master'
+				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
+			sshagent(['raghu_git_ssh']){
+				sh 'git push origin master'
+				}
             }
         }
     }
