@@ -6,7 +6,7 @@ pipeline {
             steps {
                 git branch: 'master',
                 credentialsId: 'raghu_git_ssh',
-                url: 'https://github.com/raghualapati/httpserver.git'
+                url: 'git@github.com:raghualapati/httpserver.git'
             }
         }
 		stage('Build Docker image') {
@@ -26,7 +26,7 @@ pipeline {
 				
 				git branch: 'master',
                 credentialsId: 'raghu_git_ssh',
-                url: 'https://github.com/raghualapati/httpserver.git'
+                url: 'git@github.com:raghualapati/httpserver.git'
 				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 				sh 'git add build.txt'
 				sh 'git commit -m "${BUILD_NUMBER}_build_info"'
