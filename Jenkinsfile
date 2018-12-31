@@ -23,11 +23,12 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-				withCredentials([(credentialsId: 'raghu_git_ssh')]) {
-					sh 'git tag -a ${BUILD_NUMBER}_success -m "update"'
-					sh 'git config credential.helper store'
-					sh 'git push https://github.com/raghualapati/httpserver.git'
-				}
+			git url: "ssh://jenkins@your-git-repo:12345/your-git-project.git",
+			credentialsId: 'jenkins_ssh_key',
+			branch: master	
+			sh 'git tag -a tagName -m "${BUILD_NUMBER}_build_complete"'
+			sh 'git commit -am "Merged develop commit to master"'
+			sh 'git push origin master'
             }
         }
     }
