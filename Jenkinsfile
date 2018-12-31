@@ -32,9 +32,9 @@ pipeline {
 				sshagent([raghu_git_ssh]){
 					sh 'git add build.txt'
 					sh 'git commit -m "${BUILD_NUMBER}_build_info"'
-					sh 'git config remote.origin.url git@github.com:raghualapati/httpserver.git
-					sh 'git pull ssh://git@github.com:raghualapati/httpserver.git
-					sh 'git push ssh://git@github.com:raghualapati/httpserver.git
+					sh 'git config remote.origin.url git@github.com:raghualapati/httpserver.git'
+					sh 'git pull ssh://git@github.com:raghualapati/httpserver.git'
+					sh 'git push ssh://git@github.com:raghualapati/httpserver.git'
 					}
 				
             }
