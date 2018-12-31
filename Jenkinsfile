@@ -24,8 +24,9 @@ pipeline {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
 				sh 'echo ${BUILD_NUMBER} Deployed on $(date) >> buildinfo.txt'		
-				withCredentials(credentialsId: 'raghu_git') {
-				sh 'git push https://github.com/raghualapati/httpserver.git --tags'
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+				sh 'git tag -a some_tag -m 'Jenkins''
+				sh 'git push https://github.com/raghualapati/httpserver.git'
 				}
             }
         }
