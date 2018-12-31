@@ -23,9 +23,8 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-				credentialsId: 'raghu_git'
 				sh 'echo ${BUILD_NUMBER} Deployed on $(date) >> buildinfo.txt'		
-				withCredentials([ credentialsId: 'raghu_git']) {
+				withCredentials(credentialsId: 'raghu_git') {
 				sh 'git push https://github.com/raghualapati/httpserver.git --tags'
 				}
             }
