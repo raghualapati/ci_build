@@ -30,11 +30,11 @@ pipeline {
 					branch: 'master',
 					url: 'git@github.com:raghualapati/httpserver.git')
 				sshagent([raghu_git_ssh]){
-					sh 'git -c user.name='raghu.teja.alapati@gmail.com' add build.txt
-					sh 'git -c user.name='raghu.teja.alapati@gmail.com' commit -m "${BUILD_NUMBER}_build_info"'
+					sh 'git  add build.txt
+					sh 'git commit -m "${BUILD_NUMBER}_build_info"'
 					sh 'git config remote.origin.url git@github.com:raghualapati/httpserver.git
-					sh 'git -c user.name='raghu.teja.alapati@gmail.com' pull ssh://git@github.com:raghualapati/httpserver.git
-					sh 'git -c user.name='raghu.teja.alapati@gmail.com' push ssh://git@github.com:raghualapati/httpserver.git
+					sh 'git pull ssh://git@github.com:raghualapati/httpserver.git
+					sh 'git push ssh://git@github.com:raghualapati/httpserver.git
 					}
 				
             }
