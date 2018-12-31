@@ -23,13 +23,14 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-				withCredentials([usernamePassword(credentialsId: 'raghu_git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')])
+				withCredentials([usernamePassword(credentialsId: 'raghu_git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
 				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 				sh 'echo "${GIT_PASSWORD}"'
 				sh 'git config --global user.name "${GIT_USERNAME}"'
 				sh 'git add build.txt'
 				sh 'git commit -m "${BUILD_NUMBER}_build_info"'
 				sh 'git push origin master'
+				}
             }
         }
     }
