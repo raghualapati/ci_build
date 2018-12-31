@@ -30,7 +30,7 @@ pipeline {
 				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 				sh 'git add build.txt'
 				sh 'git commit -m "${BUILD_NUMBER}_build_info"'
-				sh 'git push origin master git@github.com:raghualapati/httpserver.git'
+				sh 'git push origin master'
 				
             }
         }
