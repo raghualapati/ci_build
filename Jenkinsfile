@@ -24,7 +24,7 @@ pipeline {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
 				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
-				sshagent([raghu_git_ssh]){
+				sshagent(['raghu_git_ssh']){
 					sh 'git add build.txt'
 					sh 'git commit -m "${BUILD_NUMBER}_build_info"'
 					sh 'git pull ssh://git@github.com:raghualapati/httpserver.git'
