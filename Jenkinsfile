@@ -25,7 +25,7 @@ pipeline {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
 				withCredentials([usernamePassword(credentialsId: 'raghu_git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 					sh 'git tag -a some_tag -m "update"'
-					sh 'git push https://${GIT_USERNAME}:${GIT_PASSWORD}@https://github.com/raghualapati/httpserver.git --tags'
+					sh 'git push https://${GIT_USERNAME}:${GIT_PASSWORD}@https://github.com/raghualapati/httpserver.git'
 				}
             }
         }
