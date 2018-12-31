@@ -23,10 +23,10 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-				withCredentials([usernamePassword(credentialsId: 'raghu_git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+				withCredentials([(credentialsId: 'raghu_git_ssh')]) {
 					sh 'git tag -a ${BUILD_NUMBER}_success -m "update"'
-					sh 'git config --global credential.helper'
-					sh 'git push https://${GIT_USERNAME}:${GIT_PASSWORD}%40raghualapati/httpserver.git'
+					sh 'git config credential.helper store'
+					sh 'git push https://github.com/raghualapati/httpserver.git'
 				}
             }
         }
