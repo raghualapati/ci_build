@@ -22,12 +22,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials:'raghu_aws') {
-					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)
-				git branch: 'master',
-                credentialsId: 'raghu_git'
+					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
+				sh 'git checkout master https://github.com/raghualapati/httpserver.git'
 				sh 'echo ${BUILD_NUMBER} Deployed on $(date) >> buildinfo.txt'		
 				sh 'git push origin master'
-				}
+				
 				
             }
         }
