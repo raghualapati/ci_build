@@ -23,14 +23,15 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-				withCredentials(credentials: 'raghu_git_ssh'){
+				
+				git branch: 'master',
+                credentialsId: 'raghu_git_ssh',
+                url: 'https://github.com/raghualapati/httpserver.git'
 				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
-				
-				
 				sh 'git add build.txt'
 				sh 'git commit -m "${BUILD_NUMBER}_build_info"'
 				sh 'git push origin master'
-				}
+				
             }
         }
     }
