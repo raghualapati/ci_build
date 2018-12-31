@@ -25,9 +25,8 @@ pipeline {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
 				credentialsId: 'raghu_git'
 				sh 'echo ${BUILD_NUMBER} Deployed on $(date) >> buildinfo.txt'		
-				sh 'git push origin master https://github.com/raghualapati/httpserver.git'
-				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'raghu_git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-				sh("git push https://github.com/raghualapati/httpserver.git --tags")
+				withCredentials([ credentialsId: 'raghu_git']) {
+				sh 'git push https://github.com/raghualapati/httpserver.git --tags'
 				}
             }
         }
