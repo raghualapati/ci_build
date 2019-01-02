@@ -14,9 +14,20 @@ pipeline {
 				sh 'sudo docker build -t raghu/app:v${BUILD_NUMBER} .'
             }
         }
-        stage('Test') {
+        stage('Test the image') {
             steps {
 				sh 'sudo /usr/local/bin/dgoss run -p 8020:8080 raghu/app:v${BUILD_NUMBER}'
+            }
+        }
+		stage('Push image to S3') {
+            steps {
+				sh 'sudo docker run -itd -p 8080:8080 raghu/app:v${BUILD_NUMBER} --name helloworld'
+				sh 'sudo docker stop helloworld'
+				sh 'sudo docker export helloworld > helloworld_${BUILD_NUMBER}.tar'
+				sh 'sudo docker rm helloworld'
+				withAWS(credentials:'raghu_aws') {
+					s3Upload(file:'helloworld_${BUILD_NUMBER}.tar', bucket:'artifactory-docker', path:'helloworld_${BUILD_NUMBER}.tar')
+				}
             }
         }
         stage('Deploy') {
