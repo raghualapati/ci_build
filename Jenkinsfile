@@ -26,7 +26,7 @@ pipeline {
 				sh 'sudo docker export --output="helloworld_${BUILD_NUMBER}.tar" helloworld'
 				sh 'sudo docker rm helloworld'
 				withAWS(credentials:'raghu_aws') {
-					s3Upload(file:'helloworld_${BUILD_NUMBER}.tar', bucket:'artifactory-docker', path:'helloworld_${BUILD_NUMBER}.tar')
+					s3Upload(file:'helloworld_"${BUILD_NUMBER}".tar', bucket:'artifactory-docker', path:'helloworld_"${BUILD_NUMBER}".tar')
 				}
             }
         }
