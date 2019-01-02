@@ -1,0 +1,7 @@
+version: '3'
+services:
+  jenkins:
+    image: "jenkinsci/jenkins:lts"
+    ports:
+     - "5000:5000"
+     - "8090:8080"
