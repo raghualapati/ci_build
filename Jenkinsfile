@@ -21,7 +21,7 @@ pipeline {
         }
 		stage('Push image to S3') {
             steps {
-				sh 'sudo docker run -itd -p 8080:8080 raghu/app:v${BUILD_NUMBER} --name helloworld'
+				sh 'sudo docker run -itd -p 8080:8080 --name helloworld raghu/app:v${BUILD_NUMBER}'
 				sh 'sudo docker stop helloworld'
 				sh 'sudo docker export helloworld > helloworld_${BUILD_NUMBER}.tar'
 				sh 'sudo docker rm helloworld'
