@@ -25,6 +25,7 @@ pipeline {
 				sh 'sudo docker stop helloworld'
 				sh 'sudo docker export --output="helloworld.tar" helloworld'
 				sh 'sudo docker rm helloworld'
+		    		sh 'sudo chmod 777 helloworld.tar'
 				withAWS(credentials:'raghu_aws') {
 					s3Upload(file:'helloworld.tar', bucket:'artifactory-docker', path:'helloworld.tar')
 				}
