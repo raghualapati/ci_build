@@ -41,7 +41,7 @@ pipeline {
 					git branch: 'master',
 					credentialsId: 'raghu_git_ssh',
 					url: 'git@github.com:raghualapati/ci_build.git'
-					sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> ci_build/build.txt'
+					sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 					sh 'git add build.txt'
 					sh 'git commit -m "Build_${BUILD_NUMBER}_build_info"'
 					sh 'git pull git@github.com:raghualapati/ci_build.git'
