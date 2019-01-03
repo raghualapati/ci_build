@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone the application repo') {
             steps {
-		sh 'rm -rf *'
+				sh 'rm -rf *'
                 git branch: 'master',
                 credentialsId: 'raghu_git_ssh',
                 url: 'git@github.com:raghualapati/httpserver.git'
@@ -26,7 +26,7 @@ pipeline {
 				sh 'sudo docker stop helloworld'
 				sh 'sudo docker export --output="helloworld.tar" helloworld'
 				sh 'sudo docker rm helloworld'
-		    		sh 'sudo chmod 777 helloworld.tar'
+		    	sh 'sudo chmod 777 helloworld.tar'
 				withAWS(credentials:'raghu_aws') {
 					s3Upload(file:'helloworld.tar', bucket:'artifactory-docker', path:'helloworld.tar')
 				}
@@ -36,15 +36,16 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-					sshagent(['raghu_git_ssh']){
+				sshagent(['raghu_git_ssh']){
 					sh 'rm -rf *'
-					sh 'git clone git@github.com:raghualapati/ci_build.git'
+					git branch: 'master',
+					credentialsId: 'raghu_git_ssh',
+					url: 'git@github.com:raghualapati/ci_build.git'
 					sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> ci_build/build.txt'
-					sh 'cd ci_build && git add build.txt'
-					sh 'cd ci_build && git init'
-					sh 'cd ci_build && git commit -m "Build_${BUILD_NUMBER}_build_info"'
-					sh 'cd ci_build && git pull git@github.com:raghualapati/ci_build.git'
-					sh 'cd ci_build && git push origin master git@github.com:raghualapati/ci_build.git'
+					sh 'git add build.txt'
+					sh 'git commit -m "Build_${BUILD_NUMBER}_build_info"'
+					sh 'git pull git@github.com:raghualapati/ci_build.git'
+					sh 'git push origin master git@github.com:raghualapati/ci_build.git'
 					}
 				
             }
