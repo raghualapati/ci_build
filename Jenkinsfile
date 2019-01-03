@@ -36,7 +36,6 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-					echo "$out"
 					sshagent(['raghu_git_ssh']){
 					sh 'rm -rf *'
 					sh 'git clone git@github.com:raghualapati/ci_build.git'
