@@ -41,7 +41,7 @@ pipeline {
 					sh 'git clone git@github.com:raghualapati/ci_build.git'
 					sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> ci_build/build.txt'
 					sh 'cd ci_build && git add build.txt'
-					sh 'pwd'
+					sh 'cd ci_build && git init'
 					sh 'cd ci_build && git commit -m "Build_${BUILD_NUMBER}_build_info"'
 					sh 'cd ci_build && git pull git@github.com:raghualapati/ci_build.git'
 					sh 'cd ci_build && git push origin master git@github.com:raghualapati/ci_build.git'
