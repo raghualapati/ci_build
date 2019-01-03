@@ -36,16 +36,16 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
+				sh 'rm -rf * .git'
+				git branch: 'master',
+				credentialsId: 'raghu_git_ssh',
+				url: 'git@github.com:raghualapati/ci_build.git'
+				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 				sshagent(['raghu_git_ssh']){
-					sh 'rm -rf * .git'
-					git branch: 'master',
-					credentialsId: 'raghu_git_ssh',
-					url: 'git@github.com:raghualapati/ci_build.git'
-					sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 					sh 'git add build.txt'
 					sh 'git commit -m "Build_${BUILD_NUMBER}_build_info"'
 					sh 'git pull git@github.com:raghualapati/ci_build.git'
-					sh 'git push origin master git@github.com:raghualapati/ci_build.git'
+					sh 'git push git@github.com:raghualapati/ci_build.git'
 					}
 				
             }
