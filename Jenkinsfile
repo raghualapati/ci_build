@@ -38,7 +38,7 @@ pipeline {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
 					echo "$out"
 					sshagent(['raghu_git_ssh']){
-					rm -rf *
+					sh 'rm -rf *'
 					sh 'git clone git@github.com:raghualapati/ci_build.git'
 					sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> ci_build/build.txt'
 					sh 'cd ci_build && git add build.txt'
