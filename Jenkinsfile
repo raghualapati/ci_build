@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Clone the application repo') {
             steps {
+		sh 'rm -rf *'
                 git branch: 'master',
                 credentialsId: 'raghu_git_ssh',
                 url: 'git@github.com:raghualapati/httpserver.git'
