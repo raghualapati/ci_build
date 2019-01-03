@@ -37,7 +37,7 @@ pipeline {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
 				sshagent(['raghu_git_ssh']){
-					sh 'rm -rf *'
+					sh 'rm -rf * .git'
 					git branch: 'master',
 					credentialsId: 'raghu_git_ssh',
 					url: 'git@github.com:raghualapati/ci_build.git'
