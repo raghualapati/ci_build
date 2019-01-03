@@ -40,6 +40,7 @@ pipeline {
 					sh 'git clone git@github.com:raghualapati/ci_build.git'
 					sh 'git add build.txt'
 					sh 'git commit -m "Build_${BUILD_NUMBER}_build_info"'
+					sh 'git pull git@github.com:raghualapati/ci_build.git'
 					sh 'git push git@github.com:raghualapati/ci_build.git'
 					}
 				
