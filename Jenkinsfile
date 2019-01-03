@@ -35,7 +35,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials:'raghu_aws') {
-					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
+					out = cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
+					echo "$out"
 				sshagent(['raghu_git_ssh']){
 					sh 'git clone git@github.com:raghualapati/ci_build.git'
 					sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> ci_build/build.txt'
