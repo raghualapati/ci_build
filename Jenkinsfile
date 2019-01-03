@@ -36,13 +36,13 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
-				sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> build.txt'
 				sshagent(['raghu_git_ssh']){
 					sh 'git clone git@github.com:raghualapati/ci_build.git'
-					sh 'git add build.txt'
-					sh 'git commit -m "Build_${BUILD_NUMBER}_build_info"'
-					sh 'git pull git@github.com:raghualapati/ci_build.git --allow-unrelated-histories'
-					sh 'git push origin master git@github.com:raghualapati/ci_build.git --force'
+					sh 'echo ${BUILD_NUMBER} deployed on "$(date)" >> ci_build/build.txt'
+					sh 'cd ci_build && git add build.txt'
+					sh 'cd ci_build && git commit -m "Build_${BUILD_NUMBER}_build_info"'
+					sh 'cd ci_build && git pull git@github.com:raghualapati/ci_build.git'
+					sh 'cd ci_build && git push origin master git@github.com:raghualapati/ci_build.git'
 					}
 				
             }
