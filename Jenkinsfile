@@ -2,7 +2,7 @@ pipeline {
     agent {label 'aws-slave'}
 
     stages {
-        stage('Clone the pipeline repo') {
+        stage('Clone the application repo') {
             steps {
 				sh 'rm -rf *'
                 git branch: 'master',
