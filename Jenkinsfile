@@ -2,7 +2,7 @@ pipeline {
     agent {label 'aws-slave'}
 
     stages {
-        stage('Clone the application repo') {
+        stage('Clone the pipeline repo') {
             steps {
 				sh 'rm -rf *'
                 git branch: 'master',
@@ -35,7 +35,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials:'raghu_aws') {
-					cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)}
+					script{
+						def api_url = cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)
+						echo "The api can be accessed form the URL ${api_url}"
+						}
+					}
 				sh 'rm -rf * .git'
 				git branch: 'master',
 				credentialsId: 'raghu_git_ssh',
