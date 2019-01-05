@@ -36,7 +36,8 @@ pipeline {
             steps {
                 withAWS(credentials:'raghu_aws') {
 					script{
-						def api_url = cfnUpdate(stack:'my-stack', file:'hello_world.yaml', pollInterval:1000)
+						cfnDelete(stack:'hello-world')
+						def api_url = cfnUpdate(stack:'hello-world', file:'hello_world.yaml')
 						echo "The api can be accessed form the URL ${api_url}"
 						}
 					}
